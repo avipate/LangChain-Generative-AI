@@ -4,6 +4,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from dotenv import load_dotenv, find_dotenv
 from third_parties.linkedin import scrape_linkedin_profile
+from agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 
 load_dotenv(find_dotenv())
 
@@ -30,8 +31,12 @@ class LangChainLLM:
         # Build a chain to link the llm model and prompts
         chain = LLMChain(llm=self.llm, prompt=self.summary_prompt_template)
 
+        # LinkedIn URL
+        linkedin_profile_url = linkedin_lookup_agent(name="Eden Marco")
         # get the linkedin data
-        linkedin_data = scrape_linkedin_profile(linkedin_profile_url="https://www.linkedin.com/in/avi-patel-93503520b/")
+        linkedin_data = scrape_linkedin_profile(
+            linkedin_profile_url=linkedin_profile_url
+        )
 
         print(chain.run(information=linkedin_data))
 
