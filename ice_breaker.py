@@ -4,6 +4,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from dotenv import load_dotenv, find_dotenv
 from third_parties.linkedin import scrape_linkedin_profile
+# from third_parties.twitter import scrap_user_tweets
 from agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 
 load_dotenv(find_dotenv())
@@ -38,7 +39,9 @@ class LangChainLLM:
             linkedin_profile_url=linkedin_profile_url
         )
 
-        print(chain.run(information=linkedin_data))
+        result = chain.run(information=linkedin_data)
+
+        return result
 
 
 if __name__ == "__main__":
