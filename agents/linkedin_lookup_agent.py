@@ -8,7 +8,7 @@ from tools.tools import get_profile_url
 
 def lookup(name: str) -> str:
     # Load the ChatOpenai model
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
     template = """given the full name {name_of_person} I want you to get a link to their linkedin
                 profile page. Your answer should contain only URL."""
@@ -33,5 +33,5 @@ def lookup(name: str) -> str:
     )
 
     linked_profile_url = agent.run(prompt_template.format_prompt(name_of_person=name))
-
+    print("Linked_profile_url", linked_profile_url)
     return linked_profile_url
